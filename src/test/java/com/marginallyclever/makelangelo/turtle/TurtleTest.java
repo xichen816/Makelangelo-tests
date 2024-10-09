@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -283,5 +284,97 @@ class TurtleTest {
         for(int i=0;i<=10;++i) {
             assertTrue(new Point2D(i * 100, 0).distance(turtle.interpolate(d*(double)i/10.0)) < EPSILON);
         }
+    }
+
+    @Test
+    public void testRotate() {
+        Turtle turtle = new Turtle();
+        turtle.history.clear();
+
+        TurtleMove m1 = new TurtleMove(100, 200, MovementType.DRAW_LINE);
+        TurtleMove m2 = new TurtleMove(300, 400, MovementType.TRAVEL);
+        turtle.history.add(m1);
+        turtle.history.add(m2);
+
+        List<TurtleMove> testHistory = new ArrayList<>();
+        TurtleMove tm1 = new TurtleMove(100, 200, MovementType.DRAW_LINE);
+        TurtleMove tm2 = new TurtleMove(300, 400, MovementType.TRAVEL);
+        testHistory.add(tm1);
+        testHistory.add(tm2);
+
+        //rotate 0 degrees, should not change anything
+        turtle.rotate(0);
+        compareHistory(testHistory, turtle.history);
+
+        //rotate 360 degrees, also should not change anything
+        turtle.rotate(360);
+        compareHistory(testHistory, turtle.history);
+
+        //regular case
+        double sin = Math.sin(Math.toRadians(30));
+        double cos = Math.cos(Math.toRadians(30));
+        for(TurtleMove m: testHistory){
+            double x = m.x;
+            double y = m.y;
+            m.x =  x * cos + y * -sin;
+            m.y = x * sin + y *  cos;
+        }
+        turtle.rotate(30);
+        compareHistory(testHistory, turtle.history);
+
+
+        //rotate but without any TRAVEL or DRAW_LINE type movements in history, should not change anything
+        for(int i=0;i<testHistory.size();i++){
+            turtle.history.get(i).type = MovementType.TOOL_CHANGE;
+            testHistory.get(i).type = MovementType.TOOL_CHANGE;
+        }
+        compareHistory(testHistory, turtle.history);
+    }
+
+    private void compareHistory(List<TurtleMove> h1, List<TurtleMove> h2){
+        for(int i=0;i<h1.size();i++){
+            TurtleMove m1 = h1.get(i);
+            TurtleMove m2 = h2.get(i);
+            assertEquals(m1.x, m2.x, 0.000001);
+            assertEquals(m1.y, m2.y, 0.000001);
+            assertEquals(m1.type, m2.type);
+        }
+    }
+
+    @Test
+    public void testCountLoops(){
+        Turtle turtle = new Turtle();
+        turtle.history.clear();
+
+        //empty history
+        assertEquals(0, turtle.countLoops());
+
+        //only DRAW_LINE
+        for(int i=0;i<3;i++){
+            turtle.history.add(new TurtleMove(i, i, MovementType.DRAW_LINE));
+        }
+        assertEquals(1, turtle.countLoops());
+
+        //with only TRAVEL
+        turtle.history.clear();
+        for(int i=0;i<3;i++){
+            turtle.history.add(new TurtleMove(i, i, MovementType.TRAVEL));
+        }
+        assertEquals(0, turtle.countLoops());
+
+        //with only TOOL_CHANGE
+        turtle.history.clear();
+        for(int i=0;i<3;i++){
+            turtle.history.add(new TurtleMove(i, i, MovementType.TOOL_CHANGE));
+        }
+        assertEquals(0, turtle.countLoops());
+
+        //regular case
+        turtle.history.clear();
+        for(int i=0;i<3;i++){
+            turtle.history.add(new TurtleMove(i, i, MovementType.DRAW_LINE));
+            turtle.history.add(new TurtleMove(i, i, MovementType.TRAVEL));
+        }
+        assertEquals(3, turtle.countLoops());
     }
 }
