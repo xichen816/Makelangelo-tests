@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Assertions;
 public class TestPerlinNoise {
     @Test
     public void testNoise(){
+        //Since the function generates pseudo random values I won't assert with exact values but instead just test
+        // if the returned value is within the accepted range
+
         PerlinNoise pNoise = new PerlinNoise();
         double noise;
 
