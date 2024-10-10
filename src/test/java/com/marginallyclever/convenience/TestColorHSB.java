@@ -48,10 +48,10 @@ public class TestColorHSB {
         ColorHSB colorDifferentBrightness = new ColorHSB(1, 2, 0);
         Assertions.assertFalse(color1.equals(colorDifferentBrightness));
 
-        // Null comparison
+        // Color object should not be null
         Assertions.assertFalse(color1.equals(null));
 
-        // Different class comparison
+        // Color object should not come from a different class
         Object differentClassObject = new Object();
         Assertions.assertFalse(color1.equals(differentClassObject));
     }

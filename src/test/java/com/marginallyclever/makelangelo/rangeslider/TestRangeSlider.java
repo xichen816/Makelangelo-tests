@@ -1,6 +1,5 @@
-package com.marginallyclever.makelangelo;
+package com.marginallyclever.makelangelo.rangeslider;
 
-import com.marginallyclever.makelangelo.rangeslider.RangeSlider;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
