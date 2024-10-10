@@ -15,7 +15,7 @@ import java.util.List;
 public class TestCenterTurtleToPaperAction {
     @Test
     public void testRun(){
-        //case if paper and turtle bounds are equal, turtle history should not change at all
+        //case if drawing is already centered on (0, 0), turtle history should not change at all
         CenterTurtleToPaperAction action = new CenterTurtleToPaperAction("TestPaper");
 
         Turtle turtle = new Turtle();
