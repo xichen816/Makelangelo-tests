@@ -1,6 +1,5 @@
-package com.marginallyclever.convenience;
+package com.marginallyclever.convenience.noise;
 
-import com.marginallyclever.convenience.noise.PerlinNoise;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.Assertions;
