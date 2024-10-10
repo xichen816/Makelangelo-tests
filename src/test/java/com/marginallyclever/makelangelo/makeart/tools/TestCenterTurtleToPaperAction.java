@@ -3,9 +3,7 @@ package com.marginallyclever.makelangelo.makeart.tools;
 import com.marginallyclever.makelangelo.turtle.MovementType;
 import com.marginallyclever.makelangelo.turtle.TurtleMove;
 import org.junit.jupiter.api.Test;
-import com.marginallyclever.makelangelo.paper.Paper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import com.marginallyclever.makelangelo.turtle.Turtle;
 
