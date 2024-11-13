@@ -61,7 +61,7 @@ jobs:
         unset MAVEN_OPTS
 
     - name: Get JaCoCo Coverage
-      id: coverageGC
+      id: coverageCCount
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with Modified Compiler Count: $coverage"
