@@ -51,7 +51,7 @@ jobs:
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with SerialGC: $coverage"
 
-    - name: Build and Test with modified Compiler Count
+    - name: Build and Test with Modified Compiler Count
       timeout-minutes: 15
       run: |
         echo "Set compiler count"
@@ -64,6 +64,6 @@ jobs:
       id: coverageGC
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
-        echo "Coverage with SerialGC: $coverage"
+        echo "Coverage with Modified Compiler Count: $coverage"
         
     
