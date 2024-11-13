@@ -70,7 +70,7 @@ jobs:
       timeout-minutes: 15
       run: |
         echo "Enable String Deduplication"
-        export MAVEN_OPTS=" -XX:+UseStringDeduplication"
+        export MAVEN_OPTS=" -XX:+UseG1GC -XX:+UseStringDeduplication"
         ./mvnw -B -e verify
         echo "Resetting String Deduplication"
         unset MAVEN_OPTS
@@ -80,3 +80,18 @@ jobs:
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with Deduplicated Strings: $coverage"
+
+    - name: Build and Test with Aggressive Heap
+      timeout-minutes: 15
+      run: |
+        echo "Use Aggressive Heap"
+        export MAVEN_OPTS=" -Xmx256m -XX:+AggressiveHeap"
+        ./mvnw -B -e verify
+        echo "Resetting Agressive Heap"
+        unset MAVEN_OPTS
+
+    - name: Get JaCoCo Coverage
+      id: coverageAgressiveHeap
+      run: |
+        coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
+        echo "Coverage with Agressive Heap: $coverage"
