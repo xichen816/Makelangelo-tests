@@ -50,5 +50,20 @@ jobs:
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with SerialGC: $coverage"
+
+    - name: Build and Test with modified Compiler Count
+      timeout-minutes: 15
+      run: |
+        echo "Set compiler count"
+        export MAVEN_OPTS=" -XX:CICompilerCount=4"
+        ./mvnw -B -e verify
+        echo "Resetting Compiler Count"
+        unset MAVEN_OPTS
+
+    - name: Get JaCoCo Coverage
+      id: coverageGC
+      run: |
+        coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
+        echo "Coverage with SerialGC: $coverage"
         
     
