@@ -16,16 +16,19 @@ jobs:
         java-version: '17'
         cache: 'maven'
 
-    - name: Modifying Heap Size
-      run: |
-        echo "Change MaxHeapSize to 256MB"
-        echo "JAVA_TOOL_OPTIONS=-Xms256m -Xmx256m" >> $GITHUB_ENV
+#    - name: Modifying Heap Size
+#      run: |
+#        echo "Change MaxHeapSize to 256MB"
+#        echo "JAVA_TOOL_OPTIONS=-Xms256m -Xmx256m" >> $GITHUB_ENV
 
-    - name: Build and Test with Maven
+    - name: Build and Test with Modified Heap Size
       timeout-minutes: 15
       run: |
+        echo "Change MaxHeapSize to 256MB"
+        export MAVEN_OPTS=" -Xmx256m"
         ./mvnw -B verify
-        grep -E 'MaxHeapSize|InitialHeapSize' target/surefire-reports/*.txt || echo "Flags not found"
+        echo "Resetting MaxHeapSize"
+        unset MAVEN_OPTS
 
     - name: Get JaCoCo Coverage
       id: coverage  
