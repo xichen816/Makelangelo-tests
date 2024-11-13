@@ -34,4 +34,21 @@ jobs:
       id: coverage  
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
-        echo "COVERAGE: $coverage"
+        echo "Coverage with 128MB heap size: $coverage"
+
+    - name: Build and Test with Serial GC
+      timeout-minutes: 15
+      run: |
+        echo "Activate Serial GC"
+        export MAVEN_OPTS=" -XX:+UseSerialGC -XX:-UseG1GC"
+        ./mvnw -B -e verify
+        echo "Resetting GC"
+        unset MAVEN_OPTS
+
+    - name: Get JaCoCo Coverage
+      id: coverage
+      run: |
+        coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
+        echo "Coverage with SerialGC: $coverage"
+        
+    
