@@ -25,7 +25,7 @@ jobs:
       timeout-minutes: 15
       run: |
         echo "Change MaxHeapSize to 256MB"
-        export MAVEN_OPTS=" -Xmx256m"
+        export MAVEN_OPTS=" -Xmx5k -Xmx10k"
         ./mvnw -B verify
         echo "Resetting MaxHeapSize"
         unset MAVEN_OPTS
