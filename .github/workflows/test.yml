@@ -25,6 +25,7 @@ jobs:
       timeout-minutes: 15
       run: |
         ./mvnw -B verify
+        grep -E 'MaxHeapSize|InitialHeapSize' target/surefire-reports/*.txt || echo "Flags not found"
 
     - name: Get JaCoCo Coverage
       id: coverage  
