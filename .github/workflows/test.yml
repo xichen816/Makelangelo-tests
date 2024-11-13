@@ -31,7 +31,7 @@ jobs:
         unset MAVEN_OPTS
 
     - name: Get JaCoCo Coverage
-      id: coverage  
+      id: coverageHeap
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with 128MB heap size: $coverage"
@@ -46,7 +46,7 @@ jobs:
         unset MAVEN_OPTS
 
     - name: Get JaCoCo Coverage
-      id: coverage
+      id: coverageGC
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with SerialGC: $coverage"
