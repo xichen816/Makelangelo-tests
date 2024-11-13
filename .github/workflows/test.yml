@@ -26,7 +26,7 @@ jobs:
       run: |
         echo "Change MaxHeapSize to 64MB"
         export MAVEN_OPTS=" -Xmx64m"
-        ./mvnw -B verify
+        ./mvnw -B -e verify
         echo "Resetting MaxHeapSize"
         unset MAVEN_OPTS
 
