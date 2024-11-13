@@ -30,6 +30,12 @@ jobs:
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
         echo "Coverage with 256MB heap size: $coverage"
+    #knock knock
+    #whos there
+    #JaCoCo
+    #JaCoCo who
+    #JaCoCoCoCoCoCoCoCo....
+    #Finished with exit code 1: OutOfMemoryError
 
     - name: Build and Test with Serial GC
       timeout-minutes: 15
