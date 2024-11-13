@@ -16,11 +16,6 @@ jobs:
         java-version: '17'
         cache: 'maven'
 
-#    - name: Modifying Heap Size
-#      run: |
-#        echo "Change MaxHeapSize to 256MB"
-#        echo "JAVA_TOOL_OPTIONS=-Xms256m -Xmx256m" >> $GITHUB_ENV
-
     - name: Build and Test with Modified Heap Size
       timeout-minutes: 15
       run: |
@@ -54,8 +49,8 @@ jobs:
     - name: Build and Test with Modified Compiler Count
       timeout-minutes: 15
       run: |
-        echo "Set compiler count to 4"
-        export MAVEN_OPTS=" -XX:CICompilerCount=4"
+        echo "Set compiler count to 1"
+        export MAVEN_OPTS=" -XX:CICompilerCount=1"
         ./mvnw -B -e verify
         echo "Resetting Compiler Count"
         unset MAVEN_OPTS
