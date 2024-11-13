@@ -34,7 +34,7 @@ jobs:
       id: coverageHeap
       run: |
         coverage=$(python3 config/coverage.py target/site/jacoco/jacoco.csv) 
-        echo "Coverage with 128MB heap size: $coverage"
+        echo "Coverage with 256MB heap size: $coverage"
 
     - name: Build and Test with Serial GC
       timeout-minutes: 15
@@ -54,7 +54,7 @@ jobs:
     - name: Build and Test with Modified Compiler Count
       timeout-minutes: 15
       run: |
-        echo "Set compiler count"
+        echo "Set compiler count to 4"
         export MAVEN_OPTS=" -XX:CICompilerCount=4"
         ./mvnw -B -e verify
         echo "Resetting Compiler Count"
