@@ -19,7 +19,7 @@ jobs:
     - name: Build and Test with Maven with modified MaxHeapSize
       timeout-minutes: 15
       run: | 
-        ./mvnw -B verify -DargLine="-Xmx512m"
+        ./mvnw -B verify
         echo "Modifying Max Heap Size to 512MB"
 
     - name: Get JaCoCo Coverage
