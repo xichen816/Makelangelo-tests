@@ -16,11 +16,16 @@ jobs:
         java-version: '17'
         cache: 'maven'
 
-    - name: Build and Test with Maven with modified MaxHeapSize
+#    - name: Modifying Heap Size
+#      run: |
+#
+#        echo "JAVA_TOOL_OPTIONS=-=value1" >> $GITHUB_ENV
+
+    - name: Build and Test with Maven
       timeout-minutes: 15
-      run: | 
-        ./mvnw -B verify
-        echo "Modifying Max Heap Size to 512MB"
+      run: |
+        echo "Change MaxHeapSize to 512MB"
+        ./mvnw -B verify -DargLine="-Xms512m" -Djacoco.skip=false
 
     - name: Get JaCoCo Coverage
       id: coverage  
