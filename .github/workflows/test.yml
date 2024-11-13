@@ -49,8 +49,8 @@ jobs:
     - name: Build and Test with Modified Compiler Count
       timeout-minutes: 15
       run: |
-        echo "Set compiler count to 1"
-        export MAVEN_OPTS=" -XX:CICompilerCount=1"
+        echo "Set compiler count to 2"
+        export MAVEN_OPTS=" -XX:CICompilerCount=2"
         ./mvnw -B -e verify
         echo "Resetting Compiler Count"
         unset MAVEN_OPTS
