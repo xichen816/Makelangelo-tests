@@ -24,8 +24,8 @@ jobs:
     - name: Build and Test with Modified Heap Size
       timeout-minutes: 15
       run: |
-        echo "Change MaxHeapSize to 256MB"
-        export MAVEN_OPTS=" -Xmx5k -Xmx10k"
+        echo "Change MaxHeapSize to 10MB"
+        export MAVEN_OPTS=" -Xmx10m"
         ./mvnw -B verify
         echo "Resetting MaxHeapSize"
         unset MAVEN_OPTS
